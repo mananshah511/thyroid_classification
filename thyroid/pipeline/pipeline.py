@@ -2,11 +2,12 @@ import os,sys,json
 from thyroid.logger import logging
 from thyroid.exception import ThyroidException
 from thyroid.config.configuration import Configuration
-from thyroid.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact,DataTransformArtifact,ModelTrainerArtifact
+from thyroid.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact,DataTransformArtifact,ModelTrainerArtifact,ModelEvulationArtifact
 from thyroid.components.data_ingestion import DataIngestion
 from thyroid.components.data_validation import DataValidation
 from thyroid.components.data_transform import DataTransform
 from thyroid.components.model_trainer import ModelTrainer
+from thyroid.components.model_evulation import ModelEvulation
 
 class Pipeline:
 
@@ -49,6 +50,16 @@ class Pipeline:
         except Exception as e:
             raise ThyroidException(sys,e) from e
         
+    def start_model_evulation(self,data_transform_artifact:DataTransformArtifact,
+                              model_trainer_artifact:ModelTrainerArtifact)->ModelEvulationArtifact:
+        try:
+            model_evulation = ModelEvulation(data_transform_artifact=data_transform_artifact,
+                                             model_trainer_artifact=model_trainer_artifact,
+                                             model_evulation_config=self.config.get_model_evulation_config())
+            return model_evulation.intiate_model_evulation()
+        except Exception as e:
+            raise ThyroidException(sys,e) from e
+        
     def run_pipeline(self):
         try:
             data_ingestion_artifact = self.start_data_ingestion()
@@ -56,5 +67,7 @@ class Pipeline:
             data_transform_artifact = self.start_data_transform(data_ingestion_artifact=data_ingestion_artifact,
                                                                 data_validation_artifact=data_validation_artifact)
             model_trainer_artifact = self.start_model_trainer(data_transform_artifact=data_transform_artifact)
+            model_evulation_artifact = self.start_model_evulation(data_transform_artifact=data_transform_artifact,
+                                                                  model_trainer_artifact=model_trainer_artifact)
         except Exception as e:
             raise ThyroidException(sys,e) from e

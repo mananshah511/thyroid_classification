@@ -20,6 +20,9 @@ NO_CLUSTER = 2
 
 DROP_COLUMN_LIST = ['TBG','TSH_measured','T3_measured','TT4_measured','T4U_measured','FTI_measured','TBG_measured','FTI']
 
+BEST_MODEL_KEY = "best_model"
+HISTORY_KEY = "history"
+MODEL_PATH_KEY = "model_path"
 
 #training pipeline related variables
 

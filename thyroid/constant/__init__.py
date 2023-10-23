@@ -16,7 +16,7 @@ NUMERIC_COULMN_KEY = "numerical_columns"
 CATEGORICAL_COLUMN_KEY = "categorical_columns"
 TARGET_COLUMN_KEY = "target_column"
 
-NO_CLUSTER = 5
+NO_CLUSTER = 2
 
 DROP_COLUMN_LIST = ['TBG','TSH_measured','T3_measured','TT4_measured','T4U_measured','FTI_measured','TBG_measured','FTI']
 

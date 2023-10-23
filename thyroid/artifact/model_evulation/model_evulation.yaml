@@ -1,6 +1,0 @@
-cluster0:
-  best_model:
-    model_path: D:\projects\thyroid_classification\thyroid\artifact\model_trainer\2023-10-23-15-47-41\cluster0\model.pkl
-cluster1:
-  best_model:
-    model_path: D:\projects\thyroid_classification\thyroid\artifact\model_trainer\2023-10-23-15-47-41\cluster1\model.pkl

@@ -34,35 +34,35 @@ numerical_columns:
   - age
 
 categorical_columns:
-  - sex: object
-  - on_thyroxine: object
-  - query_on_thyroxine: object
-  - on_antithyroid_medication: object
-  - sick: object
-  - pregnant: object
-  - thyroid_surgery: object
-  - I131_treatment: object
-  - query_hypothyroid: object
-  - query_hyperthyroid: object
-  - lithium: object
-  - goitre: object
-  - tumor: object
-  - hypopituitary: object
-  - psych: object
-  - TSH_measured: object
-  - TSH: object
-  - T3_measured: object
-  - T3: object
-  - TT4_measured: object
-  - TT4: object
-  - T4U_measured: object
-  - T4U: object
-  - FTI_measured: object
-  - FTI: object
-  - TBG_measured: object
-  - TBG: object
-  - referral_source: object
-  - Class: object
+  - sex
+  - on_thyroxine
+  - query_on_thyroxine
+  - on_antithyroid_medication
+  - sick
+  - pregnant
+  - thyroid_surgery
+  - I131_treatment
+  - query_hypothyroid
+  - query_hyperthyroid
+  - lithium
+  - goitre
+  - tumor
+  - hypopituitary
+  - psych
+  - TSH_measured
+  - TSH
+  - T3_measured
+  - T3
+  - TT4_measured
+  - TT4
+  - T4U_measured
+  - T4U
+  - FTI_measured
+  - FTI
+  - TBG_measured
+  - TBG
+  - referral_source
+  - Class
 
 target_column:
   - Class

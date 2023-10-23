@@ -3,7 +3,7 @@ from thyroid.logger import logging
 from thyroid.exception import ThyroidException
 from thyroid.constant import *
 from thyroid.util.util import read_yaml
-from thyroid.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig,DataTransformConfig,ModelTrainerConfig
+from thyroid.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig,DataTransformConfig,ModelTrainerConfig,ModelEvulationConfig
 
 class Configuration:
 
@@ -127,6 +127,25 @@ class Configuration:
             logging.info(f"model trainer config : {model_trainer_config}")
 
             return model_trainer_config
+        except Exception as e:
+            raise ThyroidException(sys,e)
+        
+    def get_model_evulation_config(self)->ModelEvulationConfig:
+        try:
+            logging.info(f"get model evulation config function started")
+
+            artifact_dir = self.training_pipeline_config.artifact_dir
+
+            model_evulation_config = self.config_info[MODEL_EVULATION_CONFIG_KEY]
+            
+            model_evulation_file_path = os.path.join(artifact_dir,MODEL_EVULATION_DIR,model_evulation_config[MODEL_EVULATION_FILE_NAME_KEY])
+
+            model_evulation_config = ModelEvulationConfig(evulation_file_path=model_evulation_file_path,
+                                                          time_stamp=self.current_time_stamp)
+            
+            logging.info(f"model evulation config : {model_evulation_config}")
+
+            return model_evulation_config
         except Exception as e:
             raise ThyroidException(sys,e)
         

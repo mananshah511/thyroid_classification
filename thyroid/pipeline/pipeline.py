@@ -2,7 +2,7 @@ import os,sys,json
 from thyroid.logger import logging
 from thyroid.exception import ThyroidException
 from thyroid.config.configuration import Configuration
-from thyroid.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact,DataTransformArtifact,ModelTrainerArtifact,ModelEvulationArtifact,ModelPusherArtifact
+from thyroid.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact,DataTransformArtifact,ModelTrainerArtifact,ModelEvulationArtifact,ModelPusherArtifact,FinalArtifact
 from thyroid.components.data_ingestion import DataIngestion
 from thyroid.components.data_validation import DataValidation
 from thyroid.components.data_transform import DataTransform
@@ -79,5 +79,12 @@ class Pipeline:
             model_evulation_artifact = self.start_model_evulation(data_transform_artifact=data_transform_artifact,
                                                                   model_trainer_artifact=model_trainer_artifact)
             model_pusher_artifact = self.start_model_pusher(model_evulation_artifact=model_evulation_artifact)
+            final_artifact = FinalArtifact(cluster_model_path=data_transform_artifact.cluster_model_dir,
+                                           export_dir_path=model_pusher_artifact.export_dir_path,
+                                           ingested_train_data=data_ingestion_artifact.train_file_path,
+                                           preprocessing_dir=data_transform_artifact.preprocessing_dir)
+            
+            with open('data.json', 'w') as json_obj:
+                json.dump(final_artifact._asdict(), json_obj)
         except Exception as e:
             raise ThyroidException(sys,e) from e

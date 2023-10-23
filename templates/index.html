@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Form</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    }
+
+    .container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 50px;
+    }
+
+    form {
+    margin-top: 20px;
+    }
+
+    label {
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+    }
+
+    input, select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    }
+
+    button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+
+    button:hover {
+    background-color: #45a049;
+    }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Thyroid Model Training</h2>
+        <form id="insurance-train" action="{{ url_for('train')}}" method="post">
+            <div class="form-group">
+                <button type="submit">Train</button>
+            </div>
+        </form>
+    <div class="container"><b>
+    {{prediction_text}}</b>
+    </div>
+    
+    </body>
+    </html>

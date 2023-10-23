@@ -11,6 +11,10 @@ CURRENT_TIME_STAMP = f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}"
 
 DATABASE_NAME = "thyroid_classification.csv"
 
+COLUMN_KEY = "columns"
+NUMERIC_COULMN_KEY = "numerical_columns"
+CATEGORICAL_COLUMN_KEY = "categorical_columns"
+TARGET_COLUMN_KEY = "target_column"
 
 #training pipeline related variables
 
@@ -27,3 +31,11 @@ DATA_INGESTION_RAW_DATA_DIR = "raw_data_dir"
 DATA_INGESTION_INGESTED_DATA_DIR = "ingested_dir"
 DATA_INGESTION_INGESTED_TRAIN_DATA_DIR = "ingested_train_dir"
 DATA_INGESTION_INGESTED_TEST_DATA_DIR = "ingested_test_dir"
+
+#data validation related variables
+
+DATA_VALIDTION_CONFIG_KEY = "data_validation_config"
+DATA_VALIDATION_DIR = "data_validation"
+DATA_VALIDATION_SCHEMA_DIR_KEY = "schema_dir"
+DATA_VALIDATION_SCHEMA_FILE_KEY = "schema_file"
+DATA_VALIDATION_REPORT_PAGE_FILE_NAME = "report_page_file_name"

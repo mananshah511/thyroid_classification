@@ -1,10 +1,10 @@
 import os,sys
 
-class ThroidException:
+class ThyroidException:
 
     def __init__(self, error_message:Exception, error_details:sys):
         super().__init__(error_message)
-        self.error_message = ThroidException.get_detailed_error_message(error_message = error_message, error_details = error_details)
+        self.error_message = ThyroidException.get_detailed_error_message(error_message = error_message, error_details = error_details)
 
 
     @staticmethod

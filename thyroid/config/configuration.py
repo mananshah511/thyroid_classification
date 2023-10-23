@@ -3,7 +3,7 @@ from thyroid.logger import logging
 from thyroid.exception import ThyroidException
 from thyroid.constant import *
 from thyroid.util.util import read_yaml
-from thyroid.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig
+from thyroid.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig,DataTransformConfig
 
 class Configuration:
 
@@ -69,6 +69,39 @@ class Configuration:
             logging.info(f"data validation config : {data_validation_config}")
 
             return data_validation_config
+        except Exception as e:
+            raise ThyroidException(sys,e) from e
+        
+    def get_data_transform_config(self)->DataTransformConfig:
+        try:
+            logging.info(f"get data transform config function started")
+
+            artifact_dir = self.training_pipeline_config.artifact_dir
+
+            data_transform_config = self.config_info[DATA_TRANSFORM_CONFIG_KEY]
+
+            data_transform_dir = os.path.join(artifact_dir,DATA_TRANSFORM_DIR,self.current_time_stamp)
+
+            graph_dir = os.path.join(data_transform_dir,data_transform_config[DATA_TRANSFORM_GRAPH_DIR_KEY])
+
+            transform_train_dir = os.path.join(data_transform_dir,data_transform_config[DATA_TRANSFORM_TRAIN_DIR_KEY])
+
+            transform_test_dir = os.path.join(data_transform_dir,data_transform_config[DATA_TRANSFORM_TEST_DIR_KEY])
+
+            cluster_model_dir = os.path.join(data_transform_dir,data_transform_config[DATA_TRANSFORM_CLUSTER_MODEL_DIR_KEY],
+                                             data_transform_config[DATA_TRANSFORM_CLUSTER_MODEL_NAME_KEY])
+            
+            preprocessed_model_dir = os.path.join(data_transform_dir,data_transform_config[DATA_TRANSFORM_PREPROCESSED_OBJECT_DIR_KEY],
+                                                  data_transform_config[DATA_TRANSFORM_PREPROCESSED_OBJECT_FILE_NAME_KEY])
+            
+            data_transform_config = DataTransformConfig(graph_save_dir=graph_dir,
+                                                        transform_train_dir=transform_train_dir,
+                                                        transform_test_dir=transform_test_dir,
+                                                        cluster_model_file_path=cluster_model_dir,
+                                                        preprocessed_file_path=preprocessed_model_dir)
+            logging.info(f"data transform config: {data_transform_config}")
+
+            return data_transform_config
         except Exception as e:
             raise ThyroidException(sys,e) from e
         

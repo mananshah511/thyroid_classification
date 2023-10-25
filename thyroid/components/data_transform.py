@@ -52,6 +52,7 @@ class DataTransform:
             logging.info(f"column mapping function started")
             df['sex'] = df['sex'].map({'F':0,'M':1})
             df['Class'] = df['Class'].map({'negative':0,'compensated_hypothyroid':1,'primary_hypothyroid':2,'secondary_hypothyroid':3})
+            logging.info(f"unique:{np.unique(np.array(df['Class']))}")
             for columns in df.columns:
                 if len(df[columns].unique())==2:
                     df[columns] = df[columns].map({'f':0,'t':1})
@@ -87,7 +88,7 @@ class DataTransform:
             
             df, target = rd_sample.fit_resample(df,target)
             df = pd.concat([df,target],axis=1)
-           
+            logging.info(f"unique:{np.unique(np.array(df['Class']))}")
             return df
         except Exception as e:
             raise ThyroidException(sys,e) from e
@@ -107,7 +108,8 @@ class DataTransform:
             df = self.column_mapping(df=df)
             df = self.get_one_hotencoding(df=df)
             df = df.replace('?', np.NaN)
-
+            target_df = df.iloc[:,-1]
+            df.drop(self.target_column,axis=1,inplace=True)
             if is_test_data == False:
                 df,preprocessing_object = self.perform_imputer(df=df)
             else:
@@ -116,8 +118,7 @@ class DataTransform:
                 columns = df.columns
                 df = pd.DataFrame(data,columns=columns)
             
-            target_df = df.iloc[:,-1]
-            df.drop(self.target_column,axis=1,inplace=True)
+            
 
             df = self.get_balanced_class_data(df=df,target=target_df)
             return df,preprocessing_object
